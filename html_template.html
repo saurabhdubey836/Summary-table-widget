@@ -1,0 +1,51 @@
+<form>
+
+  <!-- Step 2. Display initial data from the server -->
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+      <span class="fa fa-bolt"
+            ng-show="c.updatedFromServer"> </span>	
+      {{::c.options.title}}
+    </div>
+
+    <!-- List group -->
+    <ul class="list-group">
+      <li class="list-group-item" 
+          ng-repeat="s in c.data.summary"
+          ng-click="c.selectAg(s)" 
+          ng-class="{ 'selected' : c.data.selectedAg == s.agValue}"	> 
+        {{s.agName}}
+        <span class="badge">
+          {{s.agCount}}
+        </span>
+      </li>
+    </ul>
+  </div>
+
+
+
+  <!-- Step 5. Display customized content based on user input -->
+  <table class="table cloud-widgets"
+         ng-if="c.data.records">
+    <thead>
+      <tr>
+        <th ng-repeat="label in c.data.labels" ng-click="c.changeSortCol(label.key)">{{label.value}}
+          <!-- Only show and style the selected column -->
+          <span ng-show="c.orderCol==label.key">
+            <span class="fa fa-sort-up"
+                  ng-show="!c.sortOrder"></span>
+            <span class="fa fa-sort-down"
+                  ng-show="c.sortOrder"></span>
+          </span>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr ng-repeat="record in c.data.records | orderBy:c.orderCol:c.sortOrder">
+        <td ng-repeat="label in c.data.labels">{{record[label.key]}}</td>
+      </tr>
+    </tbody>
+  </table>	
+</form>
