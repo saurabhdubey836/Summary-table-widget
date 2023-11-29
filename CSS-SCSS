@@ -1,0 +1,8 @@
+.badge{
+  background : red;
+}
+
+.selected{
+  background-color: #4280C0;
+  color:white;
+}
